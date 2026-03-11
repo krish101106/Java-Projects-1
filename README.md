@@ -158,7 +158,7 @@ CREATE TABLE login (
 **1. Clone the repo**
 
 ```bash
-git clone https://github.com/your-username/HRManagement.git
+git clone https://github.com/krish101106/Jaba-Project1/HRManagement.git
 cd HRManagement
 ```
 
