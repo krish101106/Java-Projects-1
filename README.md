@@ -82,6 +82,68 @@ The login page checks credentials and sets a session variable (role: `HR` or `Em
 
 ---
 
+## Database Schema
+
+Five tables. Relationships shown below.
+
+```
+Department (1) ──────── (N) Employee (N) ──────── (1) Role
+                              │ (1)
+                    ┌─────────┴──────────┐
+                    │                    │
+                   (N)                  (1)
+                 Salary               Login
+```
+
+| Table | PK | Notable columns |
+|---|---|---|
+| `department` | `dept_id` | `dept_name` |
+| `role` | `role_id` | `role_name` |
+| `employee` | `emp_id` | `name`, `surname`, `experience_years`, `dept_id` (FK), `role_id` (FK) |
+| `salary` | `salary_id` | `emp_id` (FK), `amount`, `effective_date` |
+| `login` | `login_id` | `emp_id` (FK), `username`, `password` |
+
+```sql
+CREATE TABLE department (
+    dept_id   INT PRIMARY KEY AUTO_INCREMENT,
+    dept_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE role (
+    role_id   INT PRIMARY KEY AUTO_INCREMENT,
+    role_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE employee (
+    emp_id           INT PRIMARY KEY AUTO_INCREMENT,
+    name             VARCHAR(100) NOT NULL,
+    surname          VARCHAR(100) NOT NULL,
+    experience_years INT          NOT NULL,
+    dept_id          INT,
+    role_id          INT,
+    FOREIGN KEY (dept_id) REFERENCES department(dept_id),
+    FOREIGN KEY (role_id) REFERENCES role(role_id)
+);
+
+CREATE TABLE salary (
+    salary_id      INT PRIMARY KEY AUTO_INCREMENT,
+    emp_id         INT NOT NULL,
+    amount         DECIMAL(10, 2) NOT NULL,
+    effective_date DATE NOT NULL,
+    FOREIGN KEY (emp_id) REFERENCES employee(emp_id)
+);
+
+CREATE TABLE login (
+    login_id INT PRIMARY KEY AUTO_INCREMENT,
+    emp_id   INT NOT NULL UNIQUE,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    FOREIGN KEY (emp_id) REFERENCES employee(emp_id)
+);
+```
+
+---
+
 ## Running It Locally
 
 ### Prerequisites
@@ -96,7 +158,7 @@ The login page checks credentials and sets a session variable (role: `HR` or `Em
 **1. Clone the repo**
 
 ```bash
-git clone https://github.com/krish101106/Java-Projects-1/HRManagement.git
+git clone https://github.com/your-username/HRManagement.git
 cd HRManagement
 ```
 
@@ -104,118 +166,11 @@ cd HRManagement
 
 Create a MySQL database and run the schema file:
 
-
-Department
----------------------
-dept_id (PK)
-dept_name
-
-          1
-          |
-          |
-          N
-Employee
----------------------
-emp_id (PK)
-name
-surname
-experience_years
-dept_id (FK)
-role_id (FK)
-
-          N
-          |
-          |
-          1
-Role
----------------------
-role_id (PK)
-role_name
-
-
-Employee
-   |
-   | 1
-   |
-   N
-Salary
----------------------
-salary_id (PK)
-emp_id (FK)
-amount
-effective_date
-
-
-Employee
-   |
-   | 1
-   |
-   1
-Login
----------------------
-login_id (PK)
-emp_id (FK)
-username
-password
-
-
 ```sql
 CREATE DATABASE hrms;
 USE hrms;
 -- then run your schema/seed SQL
 ```
-Department
----------------------
-dept_id (PK)
-dept_name
-
-          1
-          |
-          |
-          N
-Employee
----------------------
-emp_id (PK)
-name
-surname
-experience_years
-dept_id (FK)
-role_id (FK)
-
-          N
-          |
-          |
-          1
-Role
----------------------
-role_id (PK)
-role_name
-
-
-Employee
-   |
-   | 1
-   |
-   N
-Salary
----------------------
-salary_id (PK)
-emp_id (FK)
-amount
-effective_date
-
-
-Employee
-   |
-   | 1
-   |
-   1
-Login
----------------------
-login_id (PK)
-emp_id (FK)
-username
-password
 
 **3. Configure the DB connection**
 
