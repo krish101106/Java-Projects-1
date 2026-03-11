@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 60px 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #111827;
+        }
+
+        .form-card {
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            width: 100%;
+            max-width: 480px;
+            overflow: hidden;
+        }
+
+        .form-header {
+            padding: 28px 36px 22px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .form-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .form-body {
+            padding: 28px 36px 32px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 18px;
+        }
+
+        .field-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .field-group input {
+            padding: 11px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #111827;
+            background-color: #f9fafb;
+            font-family: inherit;
+            transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+            width: 100%;
+        }
+
+        .field-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.15s ease, transform 0.1s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #1d4ed8;
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(1px);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-card">
+
+        <div class="form-header">
+            <h2>Edit Profile</h2>
+        </div>
+
+        <div class="form-body">
+
+            <form action="<%= request.getContextPath() %>/UpdateProfileServlet" method="post">
+
+                <div class="field-group">
+                    <label>Name</label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="field-group">
+                    <label>Surname</label>
+                    <input type="text" name="surname" required>
+                </div>
+
+                <div class="field-group">
+                    <label>Username</label>
+                    <input type="text" name="username" required>
+                </div>
+
+                <div class="field-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required>
+                </div>
+
+                <button type="submit">Update</button>
+
+            </form>
+
+            <a class="back-link" href="employeeDashboard.jsp">Back</a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
