@@ -109,6 +109,58 @@ CREATE DATABASE hrms;
 USE hrms;
 -- then run your schema/seed SQL
 ```
+Department
+---------------------
+dept_id (PK)
+dept_name
+
+          1
+          |
+          |
+          N
+Employee
+---------------------
+emp_id (PK)
+name
+surname
+experience_years
+dept_id (FK)
+role_id (FK)
+
+          N
+          |
+          |
+          1
+Role
+---------------------
+role_id (PK)
+role_name
+
+
+Employee
+   |
+   | 1
+   |
+   N
+Salary
+---------------------
+salary_id (PK)
+emp_id (FK)
+amount
+effective_date
+
+
+Employee
+   |
+   | 1
+   |
+   1
+Login
+---------------------
+login_id (PK)
+emp_id (FK)
+username
+password
 
 **3. Configure the DB connection**
 
